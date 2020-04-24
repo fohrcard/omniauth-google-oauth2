@@ -64,19 +64,19 @@ module OmniAuth
         if !options[:skip_jwt] && !access_token['id_token'].nil?
           decoded = ::JWT.decode(access_token['id_token'], nil, false).first
 
-          # We have to manually verify the claims because the third parameter to
-          # JWT.decode is false since no verification key is provided.
-          ::JWT::Verify.verify_claims(decoded,
-                                      verify_iss: true,
-                                      iss: ALLOWED_ISSUERS,
-                                      verify_aud: true,
-                                      aud: options.client_id,
-                                      verify_sub: false,
-                                      verify_expiration: true,
-                                      verify_not_before: true,
-                                      verify_iat: true,
-                                      verify_jti: false,
-                                      leeway: options[:jwt_leeway])
+          # # We have to manually verify the claims because the third parameter to
+          # # JWT.decode is false since no verification key is provided.
+          # ::JWT::Verify.verify_claims(decoded,
+          #                             verify_iss: true,
+          #                             iss: ALLOWED_ISSUERS,
+          #                             verify_aud: true,
+          #                             aud: options.client_id,
+          #                             verify_sub: false,
+          #                             verify_expiration: true,
+          #                             verify_not_before: true,
+          #                             verify_iat: true,
+          #                             verify_jti: false,
+          #                             leeway: options[:jwt_leeway])
 
           hash[:id_info] = decoded
         end
